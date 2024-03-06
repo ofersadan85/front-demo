@@ -1,8 +1,0 @@
-.videoCardContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 16px; /* Adjust the gap between cards as needed */
-    padding: 16px;
-  }
-  
