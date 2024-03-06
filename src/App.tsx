@@ -9,13 +9,15 @@ export default function App() {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
 
     useEffect(() => {
-        console.log("Adding event listener");
-        const eventID = window.addEventListener("resize", () => {
+        function resizeHandler() {
             setWindowSize(window.innerWidth * count)
-        });
+        }
+
+        console.log("Adding event listener");
+        window.addEventListener("resize", resizeHandler);
         return () => {
             console.log("Removing the previous listener");
-            window.removeEventListener("resize", eventID);
+            window.removeEventListener("resize", resizeHandler);
         }
     }, [count]);
 

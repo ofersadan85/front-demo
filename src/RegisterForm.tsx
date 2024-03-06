@@ -6,12 +6,12 @@ const exampleUsernames = ["admin", "john"];
 export default function RegisterForm() {
     const [userError, setUserError] = useState("");
     const [passError, setPassError] = useState("");
-    const usernameRef = useRef();
-    const passwordRef = useRef();
-    const confirmPasswordRef = useRef();
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
     function checkPasswordMatch() {
-        if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+        if (passwordRef.current && confirmPasswordRef.current && passwordRef.current.value !== confirmPasswordRef.current.value) {
             setPassError("Passwords do not match");
             return false;
         } else {
@@ -21,7 +21,7 @@ export default function RegisterForm() {
     }
 
     function checkUsername() {
-        if (exampleUsernames.includes(usernameRef.current.value)) {
+        if (usernameRef.current && exampleUsernames.includes(usernameRef.current.value)) {
             setUserError("Username already taken");
             return false;
         } else {
@@ -30,7 +30,7 @@ export default function RegisterForm() {
         }
     }
 
-    function handleSubmit(event) {
+    function handleSubmit(event: React.MouseEvent) {
         event.preventDefault();  // Prevents the form from being submitted
         event.stopPropagation(); // Prevents the form from being submitted
         if (checkUsername() && checkPasswordMatch()) {

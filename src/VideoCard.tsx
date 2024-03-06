@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import "./VideoCard.css";
 
+type Video = {
+    thumbnail: string,
+    title: string,
+    channel: string,
+    views: number,
+    timestamp: string,
+    channelImage: string
+}
 
-function VideoCard({ thumbnail, title, channel, views, timestamp, channelImage, changeGlobalCount }) {
+type VideoCardProps = Video & {
+    changeGlobalCount: React.Dispatch<React.SetStateAction<number>>
+}
+
+function VideoCard({ thumbnail, title, channel, views, timestamp, channelImage, changeGlobalCount }: VideoCardProps) {
     let [updatedViews, setViews] = useState(views);
 
     return (
         <div className="videoCard">
             <img src={thumbnail} alt="Video Thumbnail" className="videoThumbnail" onClick={
                 () => {
-                    setViews((previous) => Number(previous) + 1);
+                    setViews(previous => previous + 1);
                     changeGlobalCount(previous => previous + 1);
                 }
             } />
@@ -34,7 +46,7 @@ const importantProducts = [
         thumbnail: "https://placehold.co/320x180/darkorange/white?text=Hello+World",
         title: "First Video Title",
         channel: "First Channel Name",
-        views: "14",
+        views: 14,
         timestamp: "2 hours ago",
         channelImage: "https://placehold.co/100x100/white/black?text=HW",
     },
@@ -42,7 +54,7 @@ const importantProducts = [
         thumbnail: "https://placehold.co/320x180/darkcyan/white?text=Video+No.2",
         title: "Second Video Title",
         channel: "Second Channel Name",
-        views: "27",
+        views: 27,
         timestamp: "3 years ago",
         channelImage: "https://placehold.co/100x100/darkgreen/black?text=V2",
     },
@@ -50,7 +62,7 @@ const importantProducts = [
         thumbnail: "https://placehold.co/320x180/white/black?text=3rd+Video+Thumbnail",
         title: "Third Video Title",
         channel: "Third Channel Name",
-        views: "32",
+        views: 32,
         timestamp: "4 months ago",
         channelImage: "https://placehold.co/100x100/darkblue/white?text=Hi!",
     },
@@ -70,9 +82,13 @@ async function getVideos() {
     return data;
 }
 
-export default function VideoCardContainer({ changeGlobalCount, refresh }) {
-    const [videos, setVideos] = useState(importantProducts);
+type VideoContainerProps = {
+    changeGlobalCount: React.Dispatch<React.SetStateAction<number>>
+    refresh: boolean
+}
 
+export default function VideoCardContainer({ changeGlobalCount, refresh }: VideoContainerProps) {
+    const [videos, setVideos] = useState(importantProducts);
     useEffect(() => {
         getVideos().then((videosFromWeb) => {
             const start = Math.floor(Math.random() * 10);
@@ -88,7 +104,7 @@ export default function VideoCardContainer({ changeGlobalCount, refresh }) {
         <div className="videoCardContainer">
             {videos.map((video, index) => (
                 <VideoCard
-                    key={video.title}
+                    key={index}
                     thumbnail={video.thumbnail}
                     title={video.title}
                     channel={video.channel}
