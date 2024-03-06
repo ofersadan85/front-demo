@@ -32,7 +32,7 @@ function getVideos() {
   ];
 }
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0)
   const sampleVideos = getVideos()
   return (
@@ -47,5 +47,3 @@ function App() {
     </>
   )
 }
-
-export default App
