@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "./App.css"
 import VideoCardContainer from "./VideoCard";
+import RegisterForm from "./RegisterForm";
 
 function getVideos() {
   return [
@@ -41,6 +42,7 @@ function App() {
           count is {count}
         </button>
         <VideoCardContainer videos={sampleVideos} />
+        <RegisterForm />
       </div>
     </>
   )
