@@ -1,4 +1,4 @@
-.videoCardContainer {
+.productCardContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -6,7 +6,7 @@
   padding: 16px;
 }
 
-.videoCard {
+.productCard {
     display: flex;
     flex-direction: column;
     width: 320px;
@@ -17,22 +17,22 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  .videoThumbnail {
+  .productThumbnail {
     width: 100%;
     height: 180px;
     object-fit: cover;
   }
   
-  .videoInfo {
+  .productInfo {
     padding: 8px;
   }
   
-  .videoHeader {
+  .productHeader {
     display: flex;
     align-items: center;
   }
   
-  .channelImage {
+  .storeIcon {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -40,24 +40,24 @@
     object-fit: cover;
   }
   
-  .videoText {
+  .productText {
     flex-grow: 1;
   }
   
-  .videoTitle {
+  .productTitle {
     margin: 0;
     margin-bottom: 4px;
     font-size: 16px;
     color: #999;
   }
   
-  .channelName {
+  .store {
     margin: 0;
     font-size: 14px;
     color: #666;
   }
   
-  .videoStats {
+  .productStats {
     font-size: 14px;
     color: #999;
     margin-top: 8px;
