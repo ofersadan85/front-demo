@@ -1,0 +1,61 @@
+.mainNavBar {
+    background: #333; /* Dark background for the navbar */
+    color: #fff; /* Light text color for contrast */
+    padding: 0.5rem 1rem; /* Adjusted padding */
+    position: fixed; /* Fix navbar to the top */
+    top: 0;
+    left: 0;
+    right: 0; /* Ensure navbar stretches correctly */
+    z-index: 1000; /* Ensure navbar is above other content */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+nav ul li:nth-child(2) { /* Assuming the second item starts the alignment to the right */
+    margin-left: auto;
+}
+
+.mainNavBar ul {
+    list-style: none; /* Remove default list styles */
+    padding: 0;
+    margin: 0 auto; /* Center align the ul if needed */
+    display: flex; /* Layout nav items in a row */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Ensure the list takes full width of nav */
+    max-width: 1200px; /* Max width to prevent too wide navbar */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.mainNavBar ul li {
+    margin-right: 20px; /* Space out nav items */
+}
+
+.mainNavBar ul li:last-child {
+    margin-right: 0; /* Remove margin for the last item */
+}
+
+.mainNavBar a {
+    color: #fff; /* Ensure text is light against the dark bg */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.mainNavBar a:hover {
+    color: #4ecdc4; /* Highlight color on hover */
+}
+
+.mainNavBar.cartCount, .mainNavBar.wishlistCount {
+    background-color: #f76c6c; /* A noticeable color */
+    color: white;
+    border-radius: 50%; /* Circular shape */
+    padding: 0.25em 0.5em; /* Some padding */
+    font-size: 0.75rem; /* Smaller font size */
+    margin-left: 4px; /* Space from icon */
+    vertical-align: super; /* Align with the icons */
+}
+
+.mainNavBar img {
+    width: 32px; /* Set a fixed width for user avatar */
+    height: 32px; /* Set a fixed height for user avatar */
+    border-radius: 50%; /* Circular avatar */
+}

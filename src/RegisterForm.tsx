@@ -1,57 +1,68 @@
 import { useState, useRef } from 'react';
-import './RegisterForm.css';
-
-const exampleUsernames = ["admin", "john"];
+import "./LoginRegister.css";
 
 export default function RegisterForm() {
     const [userError, setUserError] = useState("");
     const [passError, setPassError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
 
-    function checkPasswordMatch() {
-        if (passwordRef.current && confirmPasswordRef.current && passwordRef.current.value !== confirmPasswordRef.current.value) {
-            setPassError("Passwords do not match");
-            return false;
-        } else {
-            setPassError("");
-            return true;
-        }
+    function validatePassword() {
+        const pass1 = passwordRef.current?.value;
+        const pass2 = confirmPasswordRef.current?.value;
+        const err = (pass1?.length || 0) < 8 ? "Password must be at least 8 characters" : pass1 !== pass2 ? "Passwords do not match" : "";
+        setPassError(err);
+        return !err;
     }
 
-    function checkUsername() {
-        if (usernameRef.current && exampleUsernames.includes(usernameRef.current.value)) {
-            setUserError("Username already taken");
-            return false;
-        } else {
-            setUserError("");
-            return true;
+    function validateUsername() {
+        const exampleUsernames = ["admin", "john"];
+        const username = usernameRef.current?.value;
+        let err = "";
+        if ((username?.length || 0) < 3) {
+            err = "Username must be at least 3 characters";
+        } else if (username && exampleUsernames.includes(username)) {
+            err = "Username already taken";
         }
+        setUserError(err);
+        return !userError;
     }
+
+    function validateEmail() {
+        const email = emailRef.current?.value;
+        const err = !email || !email.includes("@") ? "Invalid email" : "";
+        setEmailError(err);
+        return !err;
+    }
+
 
     function handleSubmit(event: React.MouseEvent) {
         event.preventDefault();  // Prevents the form from being submitted
         event.stopPropagation(); // Prevents the form from being submitted
-        if (checkUsername() && checkPasswordMatch()) {
+        if (validateUsername() && validatePassword() && validateEmail()) {
             alert("Successfully registered!");
         } else {
             alert("Please fix the errors in the form");
         }
     }
 
-    const submitEnabled = !userError && !passError;
+    const submitEnabled = !userError && !passError && !emailError;
 
     return (
         <div className="registerForm">
             <form>
-                <h2>Register Form</h2>
-                <input type="text" id="username" name="username" placeholder="Username" ref={usernameRef} onBlur={checkUsername} />
+                <h2>Register Now</h2>
+                <input type="text" id="username" name="username" placeholder="Username" ref={usernameRef} onBlur={validateUsername} />
                 {!userError ? null : <div className='registerFormError'>{userError}</div>}
-                <input type="password" id="password" name="password" placeholder='Password' ref={passwordRef} onChange={checkPasswordMatch} />
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder='Confirm Password' ref={confirmPasswordRef} onChange={checkPasswordMatch} />
+                <input type="password" name="password" placeholder='Password' ref={passwordRef} onChange={validatePassword} />
+                <input type="password" name="confirmPassword" placeholder='Confirm Password' ref={confirmPasswordRef} onChange={validatePassword} />
                 {!passError ? null : <div className='registerFormError'>{passError}</div>}
-                <button onClick={handleSubmit} disabled={!submitEnabled}>Register</button>
+                <input type="email" name="email" placeholder='Email' ref={emailRef} onChange={validateEmail} />
+                {!emailError ? null : <div className='registerFormError'>{emailError}</div>}
+                <button type="submit" onClick={handleSubmit} disabled={!submitEnabled}>Register</button>
             </form>
         </div>
     );

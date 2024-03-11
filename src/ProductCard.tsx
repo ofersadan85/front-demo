@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 import WishListButton from "./Wishlist";
-import importantProducts from "./products.json";
-import { useEffect, useState } from "react";
 
 export type ProductID = number;
 export type Product = {
@@ -23,7 +21,7 @@ function addCart(id: ProductID) {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function ProductCard(product: Product) {
+export default function ProductCard(product: Product) {
     const { id, thumbnail, title, amount, price, store, storeIcon } = product;
     return (
         <div className="productCard">
@@ -48,24 +46,4 @@ function ProductCard(product: Product) {
             </div>
         </div>
     );
-}
-
-export default function ProductCardContainer() {
-    const [products, setProducts] = useState<Product[]>(importantProducts as Product[]);
-    const cards = products.map(product => <ProductCard key={product.id} {...product} />);
-    useEffect(() => {
-        fetch("https://fakestoreapi.com/products")
-            .then(response => response.json())
-            .then(data => {
-                data.map((item: any) => {
-                    item.thumbnail = item.image;
-                    item.store = item.category;
-                    item.storeIcon = item.image;
-                    item.amount = item.rating.count;
-                    return item;
-                });
-                setProducts(data);
-            });
-    }, []);
-    return <div className="productCardContainer">{cards}</div>;
 }

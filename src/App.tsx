@@ -1,24 +1,17 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import "./App.css";
-import ProductCardContainer from "./ProductCard";
-import ProductPage from "./ProductPage";
-import RegisterForm from "./RegisterForm";
-
-function PageNotFound() {
-    return <>
-        <h1>Not Found - 404</h1>
-        <p>Sorry, the page you are looking for is not found</p>
-        <Link to="/">Go Home</Link>
-    </>
-}
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProductPage from "./pages/ProductPage";
+import HomePage from "./pages/HomePage";
+import PageNotFound from "./pages/404";
+import LoginRegisterPage from "./pages/LoginRegisterPage";
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ProductCardContainer />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/product/:productId" element={<ProductPage />} />
-                <Route path="/register" element={<RegisterForm />} />
+                <Route path="/register" element={<LoginRegisterPage />} />
+                <Route path="/login" element={<LoginRegisterPage />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>
