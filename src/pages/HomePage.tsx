@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import { Cart } from "../CartButton";
@@ -11,27 +12,42 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 export default function HomePage() {
     const [cart] = useLocalStorage<Cart>("cart", {});
     const [wishlist] = useLocalStorage<Wishlist>("wishlist", []);
-    const [urlParams, setUrlParams] = useSearchParams();
+    const [urlParams, _setUrlParams] = useSearchParams();
     const [products, setProducts] = useState<Product[]>([]);
     const cards = products.map(product => <ProductCard key={product.id} {...product} />);
     const filter = urlParams.get("filter");
-    useEffect(() => {
+
+    const cachedProducts = useMemo(async () => {
         const URL = `${BACKEND_URL}/products`;
         console.debug(`Fetching all products from ${URL}`);
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                data.map((item: any) => {
-                    item.thumbnail = item.image;
-                    item.store = item.category;
-                    item.storeIcon = item.image;
-                    item.amount = item.rating.count;
-                    return item;
+        const response = await fetch(URL);
+        const data = await response.json();
+        return data.map((item: any) => {
+            item.thumbnail = item.image;
+            item.store = item.category;
+            item.storeIcon = item.image;
+            item.amount = item.rating.count;
+            return item;
+        });
+    }, []);
+
+
+    useEffect(() => {
+        console.debug(`Setting products for filter: ${filter}`);
+        switch (filter) {
+            case "wishlist":
+                cachedProducts.then(data => {
+                    setProducts(data.filter((product: Product) => wishlist.includes(product.id)))
                 });
-                if (filter === "cart") { data = data.filter((product: Product) => cart[product.id]); }
-                else if (filter === "wishlist") { data = data.filter((product: Product) => wishlist.includes(product.id)); }
-                setProducts(data);
-            });
+                break;
+            case "cart":
+                cachedProducts.then(data => {
+                    setProducts(data.filter((product: Product) => cart[product.id]));
+                });
+                break;
+            default:
+                cachedProducts.then(data => setProducts(data));
+        }
     }, [urlParams]);
 
     const wishlistHeader = <>

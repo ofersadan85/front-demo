@@ -4,7 +4,7 @@ import { ProductID } from "./ProductCard";
 export type Cart = { [productId: number]: number };
 
 export default function CartButton({ productId }: { productId: ProductID }) {
-    const [_, setCart] = useLocalStorage<Cart>("cart", {});
+    const [_cart, setCart] = useLocalStorage<Cart>("cart", {});
     function addToCart() {
         setCart(cart => {
             return { ...cart, [productId]: (cart[productId] || 0) + 1 };
