@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
-import WishListButton from "./Wishlist";
+import WishListButton, { Wishlist } from "./WishListButton";
+import CartButton, { Cart } from "./CartButton";
+import { useLocalStorage } from "usehooks-ts";
 
 export type ProductID = number;
 export type Product = {
@@ -15,18 +17,18 @@ export type Product = {
     storeIcon: string
 }
 
-function addCart(id: ProductID) {
-    let cart = JSON.parse(localStorage.getItem("cart") || "{}");
-    cart[id] = (cart[id] || 0) + 1;
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
-
 export default function ProductCard(product: Product) {
     const { id, thumbnail, title, amount, price, store, storeIcon } = product;
+    const [cart] = useLocalStorage<Cart>("cart", {});
+    const [wishlist] = useLocalStorage<Wishlist>("wishlist", []);
+    const productInCart = cart[id] || 0;
+    const isInWishlist = wishlist.includes(id);
     return (
         <div className="productCard">
             <Link to={`/product/${id}`} state={product}>
                 <img src={thumbnail} alt="Product Thumbnail" className="productThumbnail" />
+                {productInCart > 0 && <div className="cartCountRibbon">{productInCart} In Cart</div>}
+                {isInWishlist && <div className="wishListRibbon">In Wishlist</div>}
             </Link>
             <div className="productInfo">
                 <div className="productHeader">
@@ -40,8 +42,8 @@ export default function ProductCard(product: Product) {
                     <span className="views">{amount} remaining</span> • <span className="timestamp">{price}$</span>
                 </div>
                 <div className="productActions">
-                    <WishListButton id={id} />
-                    <button className="addCartButton" onClick={() => addCart(id)}>+ Add to Cart</button>
+                    <WishListButton productId={id} />
+                    <CartButton productId={id} />
                 </div>
             </div>
         </div>

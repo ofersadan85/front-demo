@@ -3,6 +3,7 @@
         "Avenir",
         "codepaths",
         "oxlint",
-        "tsbuildinfo"
+        "tsbuildinfo",
+        "usehooks"
     ]
 }

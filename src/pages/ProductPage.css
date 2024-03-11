@@ -8,6 +8,19 @@
     margin: 0 auto 20px;
 }
 
+.productPage .cartCountRibbon {
+    width: 25%;
+    transform: translateY(-175%);
+    position: fixed;
+
+}
+
+.productPage .wishListRibbon {
+    width: 25%;
+    transform: translateY(-275%);
+    position: fixed;
+}
+
 .productHeader {
     display: flex;
     flex-direction: column;
