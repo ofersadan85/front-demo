@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import "./LoginRegister.css";
 
 export default function RegisterForm() {

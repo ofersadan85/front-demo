@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
+import { useLocalStorage } from "usehooks-ts";
+import CartButton, { Cart } from "./CartButton";
 import "./ProductCard.css";
 import WishListButton, { Wishlist } from "./WishListButton";
-import CartButton, { Cart } from "./CartButton";
-import { useLocalStorage } from "usehooks-ts";
 
 export type ProductID = number;
 export type Product = {

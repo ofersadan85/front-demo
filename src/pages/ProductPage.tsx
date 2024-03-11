@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocalStorage } from "usehooks-ts";
+import CartButton, { Cart } from "../CartButton";
 import NavBar from "../NavBar";
 import { Product } from "../ProductCard";
 import WishListButton, { Wishlist } from "../WishListButton";
 import "./ProductPage.css";
-import CartButton, { Cart } from "../CartButton";
-import { useLocalStorage } from "usehooks-ts";
 
 export default function ProductPage() {
     const [product, setProduct] = useState<Product | null>(null);

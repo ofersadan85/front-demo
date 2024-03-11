@@ -1,5 +1,5 @@
+import { useLocalStorage } from 'usehooks-ts';
 import { ProductID } from "./ProductCard";
-import { useLocalStorage } from 'usehooks-ts'
 
 export type Cart = { [productId: number]: number };
 

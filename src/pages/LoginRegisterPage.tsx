@@ -1,7 +1,7 @@
-import NavBar from "../NavBar";
-import RegisterForm from "../RegisterForm";
 import LoginForm from "../LoginForm";
 import "../LoginRegister.css";
+import NavBar from "../NavBar";
+import RegisterForm from "../RegisterForm";
 
 export default function LoginRegisterPage() {
     return (

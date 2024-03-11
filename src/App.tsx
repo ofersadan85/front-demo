@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProductPage from "./pages/ProductPage";
-import HomePage from "./pages/HomePage";
 import PageNotFound from "./pages/404";
+import HomePage from "./pages/HomePage";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
+import ProductPage from "./pages/ProductPage";
 
 export default function App() {
     return (

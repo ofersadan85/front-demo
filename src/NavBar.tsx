@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useLocalStorage } from 'usehooks-ts';
+import { Cart } from "./CartButton";
 import "./NavBar.css";
 import { ProductID } from "./ProductCard";
-import { Cart } from "./CartButton";
 
 export default function NavBar() {
     const [wishlist] = useLocalStorage<ProductID[]>("wishlist", []);
@@ -13,8 +13,8 @@ export default function NavBar() {
         <nav className="mainNavBar">
             <ul>
                 <li><NavLink to="/">Home</NavLink></li>
-                <li><NavLink to="/cart">🛒{cartCount > 0 && <span className="cartCount">{cartCount}</span>}</NavLink></li>
-                <li><NavLink to="/wishlist">💌{wishlist.length > 0 && <span className="wishlistCount">{wishlist.length}</span>}</NavLink></li>
+                <li><NavLink to="/?filter=cart">🛒{cartCount > 0 && <span className="cartCount">{cartCount}</span>}</NavLink></li>
+                <li><NavLink to="/?filter=wishlist">💌{wishlist.length > 0 && <span className="wishlistCount">{wishlist.length}</span>}</NavLink></li>
                 {currentUser &&
                     <li>
                         <NavLink to="/profile">
