@@ -6,6 +6,8 @@ import NavBar from "../NavBar";
 import ProductCard, { Product } from "../ProductCard";
 import { Wishlist } from "../WishListButton";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+
 export default function HomePage() {
     const [cart] = useLocalStorage<Cart>("cart", {});
     const [wishlist] = useLocalStorage<Wishlist>("wishlist", []);
@@ -14,8 +16,9 @@ export default function HomePage() {
     const cards = products.map(product => <ProductCard key={product.id} {...product} />);
     const filter = urlParams.get("filter");
     useEffect(() => {
-        console.log("Fetching products");
-        fetch("https://fakestoreapi.com/products")
+        const URL = `${BACKEND_URL}/products`;
+        console.debug(`Fetching all products from ${URL}`);
+        fetch(URL)
             .then(response => response.json())
             .then(data => {
                 data.map((item: any) => {

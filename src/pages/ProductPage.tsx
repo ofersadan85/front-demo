@@ -7,6 +7,8 @@ import { Product } from "../ProductCard";
 import WishListButton, { Wishlist } from "../WishListButton";
 import "./ProductPage.css";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+
 export default function ProductPage() {
     const [product, setProduct] = useState<Product | null>(null);
     const { productId } = useParams();
@@ -22,7 +24,9 @@ export default function ProductPage() {
             setProduct(location.state as Product);
             return;
         }
-        fetch(`https://fakestoreapi.com/products/${productId}`)
+        const URL = `${BACKEND_URL}/products/${productId}`;
+        console.debug(`Fetching product from ${URL}`);
+        fetch(URL)
             .then(response => response.json())
             .then(data => {
                 data.thumbnail = data.image;

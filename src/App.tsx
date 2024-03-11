@@ -4,9 +4,12 @@ import HomePage from "./pages/HomePage";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
 import ProductPage from "./pages/ProductPage";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL as string;
+
 export default function App() {
+    console.debug(`Running in ${import.meta.env.MODE} mode`);
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={BASE_URL}>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/product/:productId" element={<ProductPage />} />
