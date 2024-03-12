@@ -5,5 +5,8 @@
         "oxlint",
         "tsbuildinfo",
         "usehooks"
-    ]
+    ],
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-action.json": "file:///c%3A/Users/ofers/projects/front-demo/.github/wokflows/deploy.yml"
+    }
 }

@@ -1,0 +1,39 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .vscode/**
+      - .github/**
+      - README.md
+      - .gitignore
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # From https://github.com/actions/checkout
+        with:
+          persist-credentials: false
+      - name: Use Node.js 21
+        uses: actions/setup-node@v4 # From https://github.com/actions/setup-node
+        with:
+          node-version: 21
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+        env:
+          CI: true
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
+          clean: true # Automatically remove deleted files from the deployment
