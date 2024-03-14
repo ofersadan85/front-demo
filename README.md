@@ -21,6 +21,8 @@ npm run dev
 
 This should start a local server on [http://localhost:5173/front-demo/](http://localhost:5173/front-demo/) where you can see the demo and make changes to the code. The server will automatically reload when you make changes to the code.
 
+**Note**: If this is not working for any reason, try clearing out the browser cache (or just this site's data from local storage) and restarting the server. This is because this project is a work in progress and the data types may change between versions.
+
 ## Backend
 
 Currently, we're using the [Fake Store API](https://fakestoreapi.com/) to get the products. In the future, we will replace it with our own backend.
